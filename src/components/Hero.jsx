@@ -4,7 +4,7 @@ export default function Hero() {
   return (
     <section aria-labelledby="hero-heading" className="overflow-hidden border-b border-stone-200">
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-14 sm:px-8 sm:py-20 lg:grid-cols-2 lg:gap-8 lg:py-24">
-        <div className="max-w-xl">
+        <div className="motion-fade-up max-w-xl">
           <p className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-amber-800">
             Find your next favourite
           </p>
@@ -27,7 +27,7 @@ export default function Hero() {
           <p className="mt-5 text-xs tracking-wide text-stone-500">A little escape. A lasting impression.</p>
         </div>
 
-        <div aria-hidden="true" className="relative mx-auto flex h-80 w-full max-w-lg items-center justify-center sm:h-96 lg:h-110">
+        <div aria-hidden="true" className="motion-fade-up motion-fade-up-delay relative mx-auto flex h-80 w-full max-w-lg items-center justify-center sm:h-96 lg:h-110">
           <div className="absolute inset-x-2 inset-y-5 rounded-[50%] bg-[#eee7d9] sm:inset-x-4" />
           <div className="absolute bottom-9 h-6 w-3/4 rounded-[50%] bg-stone-400/20 blur-xl" />
 

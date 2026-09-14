@@ -17,3 +17,34 @@
     outline-offset: 5px;
   }
 }
+
+@keyframes gentle-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .motion-fade-up {
+    animation: gentle-fade-up 500ms ease-out both;
+  }
+
+  .motion-fade-up-delay {
+    animation-delay: 120ms;
+  }
+
+  .motion-hover-lift {
+    transition: transform 220ms ease, box-shadow 220ms ease;
+  }
+
+  .motion-hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 30px rgb(36 62 54 / 10%);
+  }
+}

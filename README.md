@@ -25,6 +25,8 @@ Use the local URL printed by Vite. Run `npm run build` to verify the production 
 - Responsive footer with navigation, contact details, and demo-store information.
 - Friendly 404 page for unknown routes.
 - Working “Browse Books” links that jump to the bookshelf section from any page.
+- Redesigned genre filter with a visible label, custom chevron, and active-filter helper text.
+- Subtle hero entrance and book-card hover animations with reduced-motion support.
 
 There is no backend, account system, real payment processing, or shipping integration. The checkout is a demonstration only. All prices are sample values, not live retail prices.
 

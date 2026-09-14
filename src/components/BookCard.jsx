@@ -6,7 +6,7 @@ export default function BookCard({ id, title, author, price, cover }) {
   const { addToCart } = useCart()
 
   return (
-    <article className="flex h-full w-full max-w-xs flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white">
+    <article className="motion-hover-lift flex h-full w-full max-w-xs flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white">
       <Link
         to={`/books/${id}`}
         aria-label={`View details for ${title}`}
