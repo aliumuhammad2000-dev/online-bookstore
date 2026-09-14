@@ -39,8 +39,11 @@ src/
     Hero.jsx          Static introductory section
     BookCard.jsx      Display for one book
     BookGrid.jsx      Responsive list of BookCards
+    BookDetails.jsx   Detailed view for one selected book
   data/
     books.js          Sample catalogue data
+  pages/
+    BookDetailsPage.jsx  Route for one book's details
   App.jsx             Composes the page sections
   main.jsx            Mounts React into index.html
   index.css           Tailwind import and global styles
@@ -125,6 +128,17 @@ books.js -> App -> BookGrid -> BookCard
 
 The grid uses `grid-cols-1`, `sm:grid-cols-2`, and `lg:grid-cols-3` to adapt to screen width.
 
+## Step 5: BookDetails — richer props and semantic details
+
+`BookDetails` receives one complete book object through the `book` prop. The object now includes a description, physical format, and stock status in addition to the fields used by BookCard.
+
+```text
+books[0] -> App -> BookDetails
+```
+
+The details are displayed with a description list: `<dl>` groups the information, `<dt>` names each field, and `<dd>` provides its value. This gives the format and availability information a clear semantic relationship for assistive technology.
+
+Book details now live on their own route: `/books/:bookId`. BookCard links to that route, `useParams()` reads the ID from the URL, and the page finds the matching book in the local catalogue. A Back to books link returns to the home page. The Add to Cart button remains disabled until cart state is implemented.
 ### Add another book
 
 1. Put its cover in `src/assets`.
@@ -132,6 +146,14 @@ The grid uses `grid-cols-1`, `sm:grid-cols-2`, and `lg:grid-cols-3` to adapt to 
 3. Add an object with a unique ID, title, author, numeric price, and cover.
 4. BookGrid renders the new entry automatically; no extra card markup is needed.
 
+
+## Step 6: Routing — separate pages
+
+`BrowserRouter` watches the browser URL, `Routes` chooses which page to render, and `Route` connects a URL pattern to a component. The home page uses `/`, while a detail page uses `/books/:bookId`.
+
+Clicking a title or cover uses React Router's `<Link>`, so the page changes without a full browser refresh. `useParams()` reads the `bookId` value, and the page uses it to find the matching book.
+
+The detail page also handles an unknown ID with a simple Book not found message. This keeps a broken URL from rendering an empty screen.
 ## Review checklist
 
 - Resize the browser and check the header and mobile menu.
@@ -147,4 +169,8 @@ The grid uses `grid-cols-1`, `sm:grid-cols-2`, and `lg:grid-cols-3` to adapt to 
 Build and explain one component or agreed change at a time, then pause for code review. Keep this README updated as features change. The project owner handles all Git initialization, commits, and pushes manually.
 
 Next components will be discussed before implementation. Filtering, book details, and cart functionality have not been built yet.
+
+
+
+
 
