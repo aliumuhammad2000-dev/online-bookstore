@@ -12,6 +12,7 @@ import BookDetailsPage from './pages/BookDetailsPage'
 import CartPage from './pages/CartPage'
 import CheckoutPage from './pages/CheckoutPage'
 import OrderConfirmationPage from './pages/OrderConfirmationPage'
+import NotFoundPage from './pages/NotFoundPage'
 import { books } from './data/books'
 
 function HomePage() {
@@ -67,6 +68,7 @@ export default function App() {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </div>
           <Footer />

@@ -23,6 +23,7 @@ Use the local URL printed by Vite. Run `npm run build` to verify the production 
 - Demo checkout at `/checkout` with delivery fields and required-field validation.
 - Demo order confirmation at `/order-confirmation` with delivery details and order totals.
 - Responsive footer with navigation, contact details, and demo-store information.
+- Friendly 404 page for unknown routes.
 
 There is no backend, account system, real payment processing, or shipping integration. The checkout is a demonstration only. All prices are sample values, not live retail prices.
 
@@ -52,6 +53,7 @@ src/
     CheckoutPage.jsx     Demo checkout route
     OrderConfirmationPage.jsx  Confirmation after a demo order
     Footer.jsx            Site footer and navigation links
+    NotFoundPage.jsx      Fallback page for unknown routes
   utils/
     currency.js       Shared naira formatting
   App.jsx             Routes and home-page composition
