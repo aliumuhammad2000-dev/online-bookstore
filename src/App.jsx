@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { CartProvider } from './context/CartContext'
+import { WishlistProvider } from './context/WishlistContext'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Hero from './components/Hero'
@@ -13,6 +14,7 @@ import CartPage from './pages/CartPage'
 import CheckoutPage from './pages/CheckoutPage'
 import OrderConfirmationPage from './pages/OrderConfirmationPage'
 import NotFoundPage from './pages/NotFoundPage'
+import WishlistPage from './pages/WishlistPage'
 import { books } from './data/books'
 
 function HomePage() {
@@ -58,7 +60,8 @@ function HomePage() {
 export default function App() {
   return (
     <CartProvider>
-      <BrowserRouter>
+      <WishlistProvider>
+        <BrowserRouter>
         <div className="flex min-h-screen flex-col">
           <Header />
           <div className="flex-1">
@@ -68,12 +71,14 @@ export default function App() {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />
               <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
+              <Route path="/wishlist" element={<WishlistPage />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </div>
           <Footer />
         </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </WishlistProvider>
     </CartProvider>
   )
 }

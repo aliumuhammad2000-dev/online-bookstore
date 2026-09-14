@@ -27,6 +27,7 @@ Use the local URL printed by Vite. Run `npm run build` to verify the production 
 - Working “Browse Books” links that jump to the bookshelf section from any page.
 - Redesigned genre filter with a visible label, custom chevron, and active-filter helper text.
 - Subtle hero entrance and book-card hover animations with reduced-motion support.
+- Wishlist page at `/wishlist` with heart controls and localStorage persistence.
 
 There is no backend, account system, real payment processing, or shipping integration. The checkout is a demonstration only. All prices are sample values, not live retail prices.
 
@@ -57,6 +58,8 @@ src/
     OrderConfirmationPage.jsx  Confirmation after a demo order
     Footer.jsx            Site footer and navigation links
     NotFoundPage.jsx      Fallback page for unknown routes
+    WishlistPage.jsx      Saved books page
+    WishlistContext.jsx   Persistent wishlist state
   utils/
     currency.js       Shared naira formatting
   App.jsx             Routes and home-page composition

@@ -1,11 +1,13 @@
 import { useRef, useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
+import { useWishlist } from '../context/WishlistContext'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const menuButtonRef = useRef(null)
   const { cartCount } = useCart()
+  const { wishlistCount } = useWishlist()
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -63,6 +65,14 @@ export default function Header() {
             className="rounded-md px-3 py-3 text-left text-sm font-semibold text-[#243e36] hover:text-amber-800 md:px-0"
           >
             Browse Books
+          </Link>
+          <Link
+            to="/wishlist"
+            onClick={closeMenu}
+            className="flex items-center gap-2 rounded-md px-3 py-3 text-sm font-semibold text-[#243e36] hover:text-amber-800 md:px-0"
+          >
+            Wishlist
+            <span className="text-xs text-stone-500">({wishlistCount})</span>
           </Link>
           <button
             type="button"
