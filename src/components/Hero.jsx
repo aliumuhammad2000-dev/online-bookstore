@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export default function Hero() {
   return (
     <section aria-labelledby="hero-heading" className="overflow-hidden border-b border-stone-200">
@@ -15,15 +17,13 @@ export default function Hero() {
             Discover stories, fresh perspectives, and books you’ll want to keep.
           </p>
 
-          <button
-            type="button"
-            disabled
-            title="Book browsing is coming soon"
-            className="mt-8 inline-flex min-h-12 items-center justify-center gap-4 rounded-full bg-[#243e36] px-7 py-3.5 text-sm font-semibold text-white disabled:cursor-not-allowed"
+          <Link
+            to="#books-heading"
+            className="mt-8 inline-flex min-h-12 items-center justify-center gap-4 rounded-full bg-[#243e36] px-7 py-3.5 text-sm font-semibold text-white hover:bg-[#31584c]"
           >
             Browse Books
             <span aria-hidden="true">&rarr;</span>
-          </button>
+          </Link>
           <p className="mt-5 text-xs tracking-wide text-stone-500">A little escape. A lasting impression.</p>
         </div>
 

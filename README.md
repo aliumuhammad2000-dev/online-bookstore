@@ -24,6 +24,7 @@ Use the local URL printed by Vite. Run `npm run build` to verify the production 
 - Demo order confirmation at `/order-confirmation` with delivery details and order totals.
 - Responsive footer with navigation, contact details, and demo-store information.
 - Friendly 404 page for unknown routes.
+- Working “Browse Books” links that jump to the bookshelf section from any page.
 
 There is no backend, account system, real payment processing, or shipping integration. The checkout is a demonstration only. All prices are sample values, not live retail prices.
 

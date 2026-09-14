@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 
 export default function Header() {
@@ -57,9 +57,13 @@ export default function Header() {
           >
             Home
           </NavLink>
-          <button type="button" disabled title="Book browsing is coming soon" className="rounded-md px-3 py-3 text-left text-sm text-stone-500 disabled:cursor-not-allowed md:px-0">
+          <Link
+            to="/#books-heading"
+            onClick={closeMenu}
+            className="rounded-md px-3 py-3 text-left text-sm font-semibold text-[#243e36] hover:text-amber-800 md:px-0"
+          >
             Browse Books
-          </button>
+          </Link>
           <button
             type="button"
             aria-label={`Shopping cart, ${cartCount} ${cartCount === 1 ? 'item' : 'items'}`}
