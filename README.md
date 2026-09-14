@@ -24,6 +24,7 @@ npm run preview
 - Hero: introduction, Browse Books button, and decorative book illustrations.
 - BookCard: reusable cover, title, author, naira price, and Add to Cart button.
 - BookGrid: six sample books in one column on mobile, two from 640px, and three from 1024px.
+- Catalogue controls: search by title or author, genre filter, result count, and an empty state.
 
 Browse Books, Cart, and Add to Cart are disabled until we implement their functionality. There is no backend, account system, checkout, or real payment processing.
 
@@ -44,6 +45,9 @@ src/
     books.js          Sample catalogue data
   pages/
     BookDetailsPage.jsx  Route for one book's details
+    SearchBar.jsx        Controlled title and author search
+    GenreFilter.jsx      Controlled genre select
+    EmptyState.jsx       No-results message
   App.jsx             Composes the page sections
   main.jsx            Mounts React into index.html
   index.css           Tailwind import and global styles
@@ -154,6 +158,13 @@ Book details now live on their own route: `/books/:bookId`. BookCard links to th
 Clicking a title or cover uses React Router's `<Link>`, so the page changes without a full browser refresh. `useParams()` reads the `bookId` value, and the page uses it to find the matching book.
 
 The detail page also handles an unknown ID with a simple Book not found message. This keeps a broken URL from rendering an empty screen.
+## Step 7: Search and filtering — controlled inputs
+
+The home page now keeps `searchTerm` and `selectedGenre` in React state. `SearchBar` and `GenreFilter` are controlled components: their displayed values come from state, and their `onChange` callbacks update that state.
+
+The catalogue filters books by checking the title and author together, then checking the selected genre. `useMemo` recalculates the filtered list when either value changes. The result count uses `aria-live="polite"` so assistive technology can announce updates without interrupting the reader.
+
+If no books match, `EmptyState` explains what to try. Adding a genre to a book in `src/data/books.js` automatically makes it available to the filter.
 ## Review checklist
 
 - Resize the browser and check the header and mobile menu.
@@ -169,6 +180,8 @@ The detail page also handles an unknown ID with a simple Book not found message.
 Build and explain one component or agreed change at a time, then pause for code review. Keep this README updated as features change. The project owner handles all Git initialization, commits, and pushes manually.
 
 Next components will be discussed before implementation. Filtering, book details, and cart functionality have not been built yet.
+
+
 
 
 
