@@ -1,10 +1,13 @@
 import Header from './components/Header'
+import Hero from './components/Hero'
 
 export default function App() {
   return (
     <>
       <Header />
-      <main id="main-content" tabIndex={-1} />
+      <main id="main-content" tabIndex={-1}>
+        <Hero />
+      </main>
     </>
   )
 }

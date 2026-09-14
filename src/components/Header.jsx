@@ -1,7 +1,6 @@
 import { useState } from 'react'
 
 export default function Header() {
-  // React remembers whether the mobile navigation is open.
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
@@ -23,7 +22,6 @@ export default function Header() {
           <span className="font-serif text-xl font-bold tracking-tight sm:text-2xl">Thundey BookStore<span className="text-amber-700">.</span></span>
         </a>
 
-        {/* md:hidden hides this button on screens 768px and wider. */}
         <button
           type="button"
           aria-expanded={isMenuOpen}
@@ -34,7 +32,6 @@ export default function Header() {
           {isMenuOpen ? 'Close' : 'Menu'}
         </button>
 
-        {/* The menu responds to state on mobile and stays visible on desktop. */}
         <nav
           id="main-navigation"
           aria-label="Main navigation"
@@ -49,7 +46,7 @@ export default function Header() {
           <a href="/" aria-current="page" onClick={() => setIsMenuOpen(false)} className="rounded-md px-3 py-3 text-sm font-semibold underline decoration-amber-700 decoration-2 underline-offset-8 md:px-0">
             Home
           </a>
-          {/* These controls will become links when we build their pages. */}
+
           <button type="button" disabled title="Book browsing is coming soon" className="rounded-md px-3 py-3 text-left text-sm text-stone-500 disabled:cursor-not-allowed md:px-0">
             Browse Books
           </button>
