@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { CartProvider } from './context/CartContext'
 import Header from './components/Header'
+import Footer from './components/Footer'
 import Hero from './components/Hero'
 import BookGrid from './components/BookGrid'
 import EmptyState from './components/EmptyState'
@@ -57,14 +58,19 @@ export default function App() {
   return (
     <CartProvider>
       <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/books/:bookId" element={<BookDetailsPage />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
-        </Routes>
+        <div className="flex min-h-screen flex-col">
+          <Header />
+          <div className="flex-1">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/books/:bookId" element={<BookDetailsPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/order-confirmation" element={<OrderConfirmationPage />} />
+            </Routes>
+          </div>
+          <Footer />
+        </div>
       </BrowserRouter>
     </CartProvider>
   )
