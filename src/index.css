@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    margin: 0;
+    background-color: #faf7f0;
+    color: #243e36;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  button:not(:disabled), a {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid #243e36;
+    outline-offset: 5px;
+  }
+}
