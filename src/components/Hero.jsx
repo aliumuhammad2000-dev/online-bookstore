@@ -1,7 +1,6 @@
 export default function Hero() {
   return (
     <section aria-labelledby="hero-heading" className="overflow-hidden border-b border-stone-200">
-      {/* One column on mobile; two equal columns from 1024px upward. */}
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-14 sm:px-8 sm:py-20 lg:grid-cols-2 lg:gap-8 lg:py-24">
         <div className="max-w-xl">
           <p className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-amber-800">
@@ -16,7 +15,6 @@ export default function Hero() {
             Discover stories, fresh perspectives, and books you’ll want to keep.
           </p>
 
-          {/* Enable this when the book catalogue is ready. */}
           <button
             type="button"
             disabled
@@ -29,8 +27,7 @@ export default function Hero() {
           <p className="mt-5 text-xs tracking-wide text-stone-500">A little escape. A lasting impression.</p>
         </div>
 
-        {/* Decorative book illustrations made with HTML and Tailwind, not product listings. */}
-        <div aria-hidden="true" className="relative mx-auto flex h-80 w-full max-w-lg items-center justify-center sm:h-96 lg:h-[440px]">
+        <div aria-hidden="true" className="relative mx-auto flex h-80 w-full max-w-lg items-center justify-center sm:h-96 lg:h-110">
           <div className="absolute inset-x-2 inset-y-5 rounded-[50%] bg-[#eee7d9] sm:inset-x-4" />
           <div className="absolute bottom-9 h-6 w-3/4 rounded-[50%] bg-stone-400/20 blur-xl" />
 

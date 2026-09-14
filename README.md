@@ -1,6 +1,6 @@
 # Thundey BookStore
 
-A frontend learning project for a physical bookstore, built one component at a time with React, Tailwind CSS, and Vite. Prices are displayed in Nigerian naira (NGN).
+A frontend learning project for a physical bookstore, built one component at a time with React, Tailwind CSS, and Vite. Prices use Nigerian naira (NGN).
 
 ## Run locally
 
@@ -9,29 +9,20 @@ npm install
 npm run dev
 ```
 
-Open the local URL printed in the terminal.
+Use the local URL printed by Vite. Run `npm run build` to verify the production build and `npm run preview` to serve it locally.
 
-```sh
-npm run build
-npm run preview
-```
+## Current features
 
-`build` creates the production files in `dist`. `preview` serves that build locally.
+- Responsive header with a mobile menu and cart count.
+- Hero section with decorative book illustrations.
+- Six-book catalogue with local SVG covers.
+- Search by title or author and filter by genre.
+- Separate book detail routes at `/books/:bookId`.
+- Shared cart state with Add to Cart, quantity updates, remove actions, and localStorage persistence.
+- Cart page at `/cart` with subtotal, delivery fee, and total.
+- Demo checkout at `/checkout` with delivery fields and required-field validation.
 
-## Current progress
-
-- Header: store name, Home link, cart icon with a sample count, responsive mobile menu.
-- Hero: introduction, Browse Books button, and decorative book illustrations.
-- BookCard: reusable cover, title, author, naira price, and Add to Cart button.
-- BookGrid: six sample books in one column on mobile, two from 640px, and three from 1024px.
-- Catalogue controls: search by title or author, genre filter, result count, and an empty state.
-- Cart foundation: shared cart state, Add to Cart actions, a live header count, localStorage persistence.
-- Cart page: item quantities, remove actions, delivery, subtotal, and total.
-- Demo checkout: delivery form with validation and order summary.
-
-Browse Books, Cart, and Add to Cart are disabled until we implement their functionality. There is no backend, account system, checkout, or real payment processing.
-
-The book covers are locally created SVG illustrations, not official publisher artwork. All prices are sample values, not live retail prices.
+There is no backend, account system, real payment processing, or shipping integration. The checkout is a demonstration only. All prices are sample values, not live retail prices.
 
 ## Project structure
 
@@ -39,55 +30,40 @@ The book covers are locally created SVG illustrations, not official publisher ar
 src/
   assets/             Local SVG book covers
   components/
-    Header.jsx        Navigation and mobile menu state
+    Header.jsx        Navigation, mobile menu, and cart link
     Hero.jsx          Static introductory section
     BookCard.jsx      Display for one book
     BookGrid.jsx      Responsive list of BookCards
-    BookDetails.jsx   Detailed view for one selected book
+    BookDetails.jsx   Detailed view for one book
+    SearchBar.jsx     Controlled title and author search
+    GenreFilter.jsx   Controlled genre select
+    EmptyState.jsx    No-results message
+    CartItem.jsx      Cart line item and quantity control
+    CartSummary.jsx   Cart totals and checkout link
+  context/
+    CartContext.jsx   Shared cart state and localStorage persistence
   data/
     books.js          Sample catalogue data
   pages/
     BookDetailsPage.jsx  Route for one book's details
-    SearchBar.jsx        Controlled title and author search
-    GenreFilter.jsx      Controlled genre select
-    EmptyState.jsx       No-results message
-  context/
-    CartContext.jsx      Shared cart state and localStorage persistence
-  App.jsx             Composes the page sections
+    CartPage.jsx         Cart route
+    CheckoutPage.jsx     Demo checkout route
+  utils/
+    currency.js       Shared naira formatting
+  App.jsx             Routes and home-page composition
   main.jsx            Mounts React into index.html
   index.css           Tailwind import and global styles
 ```
 
-`vite.config.js` enables the React and Tailwind plugins.
+## How the main React concepts work
 
-## Step 1: Header — components and state
+### Components and props
 
-A React component is a function that returns JSX. `className` applies CSS classes in JSX.
-
-- `useState(false)` starts the mobile menu closed.
-- `isMenuOpen` stores its current state; `setIsMenuOpen` updates it.
-- `onClick` opens or closes the menu.
-- `md:flex` keeps navigation visible from 768px upward.
-- `aria-expanded` announces the menu state to assistive technology.
-- `aria-controls` links the toggle to the navigation element.
-- The cart SVG is decorative; its button has an accessible label.
-
-## Step 2: Hero — layout and composition
-
-`App.jsx` imports Hero and renders it below Header inside the main content area.
-
-- The h1 identifies the page's main heading.
-- `grid` creates the layout; `lg:grid-cols-2` creates two columns on larger screens.
-- `relative` and `absolute` position the decorative book illustrations.
-- The illustration is hidden from screen readers because it repeats decorative text.
-- Hero does not need state because its content is static.
-
-## Step 3: BookCard — props and currency formatting
-
-BookCard receives `title`, `author`, `price`, and `cover` as props. It can display different books without duplicating its markup.
+A component is a function that returns JSX. Props let one component display different data:
 
 ```jsx
 <BookCard
+  id="pride-and-prejudice"
   title="Pride and Prejudice"
   author="Jane Austen"
   price={8500}
@@ -95,127 +71,26 @@ BookCard receives `title`, `author`, `price`, and `cover` as props. It can displ
 />
 ```
 
-`price={8500}` passes a number. `Intl.NumberFormat` formats that number as naira with no decimal places. The numeric value remains available for future cart calculations.
+`BookGrid` maps over the catalogue and gives each card a stable `key`. `BookDetailsPage` reads a book ID from the URL with `useParams()`.
 
-The cover has alternative text and loads lazily. The card uses a flexible column layout so prices and buttons align across cards with different title lengths.
-### How the book images are made
+### Controlled inputs
 
-The book covers are local SVG files created with code rather than downloaded photographs. SVG stores drawing instructions that the browser renders as an image. For example:
+`SearchBar`, `GenreFilter`, and the checkout fields receive their values from React state. Their change handlers update that state, so the UI and data stay synchronized. The catalogue derives filtered books from the search text and selected genre.
 
-```svg
-<svg width="360" height="520" viewBox="0 0 360 520">
-  <rect width="360" height="520" fill="#294d40" />
-  <text x="180" y="240" text-anchor="middle" fill="#f5e7c5">
-    Pride and Prejudice
-  </text>
-</svg>
-```
+### Shared cart state
 
-`<rect>` draws the background, while `<text>` draws the author or title. `<path>` is used for custom shapes such as borders and arches. The SVG is imported like any other image and passed to `BookCard`:
+`CartProvider` wraps the application. Components read the cart through `useCart()`, so the header, catalogue, detail page, cart page, and checkout all use the same items. `addToCart`, `updateQuantity`, and `removeFromCart` update arrays immutably. The cart count uses `reduce()` and the cart is saved to `localStorage`.
 
-```jsx
-import prideCover from '../assets/pride-and-prejudice.svg'
+### SVG covers
 
-<img src={prideCover} alt="Pride and Prejudice book cover" />
-```
+The book covers are local SVG files created with code rather than downloaded photographs. SVG stores drawing instructions such as rectangles, paths, and text, which the browser renders as an image. The Hero uses a separate technique: styled HTML elements and Tailwind classes create its decorative overlapping books.
 
-The Hero uses a second technique. Its decorative books are regular HTML `<div>` elements styled with Tailwind classes. Background colours create the covers, text creates the titles, and `rotate-*`, `shadow-*`, and positioning classes make them look like overlapping physical books. They are marked `aria-hidden` because they are decorative and repeat information shown in the page text.
+### Accessibility
 
-## Step 4: BookGrid — arrays, map, and keys
-
-`src/data/books.js` exports an array of book objects. Each object contains a stable `id`, title, author, numeric price, and imported cover image.
-
-The data flows through the components like this:
-
-```text
-books.js -> App -> BookGrid -> BookCard
-```
-
-`App` passes the array using `<BookGrid books={books} />`. BookGrid uses `books.map()` to return one BookCard for each object.
-
-`key={book.id}` helps React identify each card if the list changes. A key is for React's bookkeeping; it is not a normal prop received by BookCard.
-
-The grid uses `grid-cols-1`, `sm:grid-cols-2`, and `lg:grid-cols-3` to adapt to screen width.
-
-## Step 5: BookDetails — richer props and semantic details
-
-`BookDetails` receives one complete book object through the `book` prop. The object now includes a description, physical format, and stock status in addition to the fields used by BookCard.
-
-```text
-books[0] -> App -> BookDetails
-```
-
-The details are displayed with a description list: `<dl>` groups the information, `<dt>` names each field, and `<dd>` provides its value. This gives the format and availability information a clear semantic relationship for assistive technology.
-
-Book details now live on their own route: `/books/:bookId`. BookCard links to that route, `useParams()` reads the ID from the URL, and the page finds the matching book in the local catalogue. A Back to books link returns to the home page. The Add to Cart button remains disabled until cart state is implemented.
-### Add another book
-
-1. Put its cover in `src/assets`.
-2. Import the cover in `src/data/books.js`.
-3. Add an object with a unique ID, title, author, numeric price, and cover.
-4. BookGrid renders the new entry automatically; no extra card markup is needed.
-
-
-## Step 6: Routing — separate pages
-
-`BrowserRouter` watches the browser URL, `Routes` chooses which page to render, and `Route` connects a URL pattern to a component. The home page uses `/`, while a detail page uses `/books/:bookId`.
-
-Clicking a title or cover uses React Router's `<Link>`, so the page changes without a full browser refresh. `useParams()` reads the `bookId` value, and the page uses it to find the matching book.
-
-The detail page also handles an unknown ID with a simple Book not found message. This keeps a broken URL from rendering an empty screen.
-## Step 7: Search and filtering — controlled inputs
-
-The home page now keeps `searchTerm` and `selectedGenre` in React state. `SearchBar` and `GenreFilter` are controlled components: their displayed values come from state, and their `onChange` callbacks update that state.
-
-The catalogue filters books by checking the title and author together, then checking the selected genre. `useMemo` recalculates the filtered list when either value changes. The result count uses `aria-live="polite"` so assistive technology can announce updates without interrupting the reader.
-
-If no books match, `EmptyState` explains what to try. Adding a genre to a book in `src/data/books.js` automatically makes it available to the filter.
-## Step 8: Cart state — shared data with Context
-
-`CartProvider` wraps the application so the header, book cards, and detail pages can use the same cart data. Components read that data with the `useCart()` hook.
-
-`addToCart()` adds a book with quantity `1`, or increases the quantity when that book is already present. The header calculates the total item count with `reduce()` and displays it in the cart badge.
-
-The cart is saved to `localStorage` whenever it changes and restored when the app starts. This keeps the current selection after a page refresh. The cart page now includes quantity controls, remove actions, subtotal, delivery, and total. Checkout remains disabled until that flow is built.
-
-## Step 9: Cart page — quantities and totals
-
-`CartPage` reads the shared cart items and calculates the subtotal with `reduce()`. `CartItem` lets the shopper change a quantity or remove a book. A quantity below one removes the item from the cart.
-
-`CartSummary` adds a sample delivery charge and displays the subtotal, delivery, and total. Checkout remains disabled because this project does not have a backend or payment service yet.
-
-The cart icon always opens `/cart`. An empty cart shows a continue-shopping message.
-
-## Step 10: Demo checkout — controlled forms and validation
-
-`CheckoutPage` keeps each delivery field in one form object. Every input is controlled by React, and submitting the form checks that required fields are filled before showing a status message.
-
-The page calculates the same subtotal and delivery fee as the cart and lists each item in the order summary. It does not collect card details or process a payment. A confirmation page will be added next.## Review checklist
-
-- Resize the browser and check the header and mobile menu.
-- Operate the mobile menu with Tab, Enter, and Escape.
-- Check the Hero on wide and narrow screens.
-- Confirm all six covers, titles, authors, and naira prices display.
-- Check the grid at mobile, tablet, and desktop widths.
-- Confirm the shopping controls remain disabled.
-- Run `npm run build` before committing.
+The project uses labelled form controls, descriptive image alt text, semantic headings and definition lists, keyboard-friendly buttons, a skip link, and an `aria-live` result count.
 
 ## Learning workflow
 
-Build and explain one component or agreed change at a time, then pause for code review. Keep this README updated as features change. The project owner handles all Git initialization, commits, and pushes manually.
+Build and explain one component or agreed change at a time, review it in the browser, and update this README before committing. The project owner handles Git commits and pushes manually.
 
-Next components will be discussed before implementation. Filtering, book details, and cart functionality have not been built yet.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Next planned work is an order confirmation screen after the demo checkout.

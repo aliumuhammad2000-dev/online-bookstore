@@ -18,6 +18,7 @@ function HomePage() {
   const genres = [...new Set(books.map((book) => book.genre))]
   const filteredBooks = useMemo(() => {
     const query = searchTerm.trim().toLowerCase()
+
     return books.filter((book) => {
       const matchesSearch = !query || `${book.title} ${book.author}`.toLowerCase().includes(query)
       const matchesGenre = selectedGenre === 'all' || book.genre === selectedGenre
@@ -29,14 +30,22 @@ function HomePage() {
     <main id="main-content" tabIndex={-1}>
       <Hero />
       <section aria-labelledby="books-heading" className="mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
-        <h1 id="books-heading" className="font-serif text-3xl tracking-tight sm:text-4xl">On the bookshelf</h1>
+        <h1 id="books-heading" className="font-serif text-3xl tracking-tight sm:text-4xl">
+          On the bookshelf
+        </h1>
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
           <SearchBar value={searchTerm} onChange={setSearchTerm} />
           <GenreFilter value={selectedGenre} genres={genres} onChange={setSelectedGenre} />
         </div>
-        <p className="mt-5 text-sm text-stone-500" aria-live="polite">Showing {filteredBooks.length} of {books.length} books</p>
+        <p className="mt-5 text-sm text-stone-500" aria-live="polite">
+          Showing {filteredBooks.length} of {books.length} books
+        </p>
         <div className="mt-6">
-          {filteredBooks.length > 0 ? <BookGrid books={filteredBooks} /> : <EmptyState searchTerm={searchTerm} genre={selectedGenre} />}
+          {filteredBooks.length > 0 ? (
+            <BookGrid books={filteredBooks} />
+          ) : (
+            <EmptyState searchTerm={searchTerm} genre={selectedGenre} />
+          )}
         </div>
       </section>
     </main>
@@ -47,20 +56,14 @@ export default function App() {
   return (
     <CartProvider>
       <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/books/:bookId" element={<BookDetailsPage />} />
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/books/:bookId" element={<BookDetailsPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
-      </Routes>
+        </Routes>
       </BrowserRouter>
     </CartProvider>
   )
 }
-
-
-
-
-
-
