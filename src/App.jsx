@@ -9,6 +9,7 @@ import GenreFilter from './components/GenreFilter'
 import SearchBar from './components/SearchBar'
 import BookDetailsPage from './pages/BookDetailsPage'
 import CartPage from './pages/CartPage'
+import CheckoutPage from './pages/CheckoutPage'
 import { books } from './data/books'
 
 function HomePage() {
@@ -51,11 +52,14 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/books/:bookId" element={<BookDetailsPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
       </Routes>
       </BrowserRouter>
     </CartProvider>
   )
 }
+
+
 
 
 

@@ -27,6 +27,7 @@ npm run preview
 - Catalogue controls: search by title or author, genre filter, result count, and an empty state.
 - Cart foundation: shared cart state, Add to Cart actions, a live header count, localStorage persistence.
 - Cart page: item quantities, remove actions, delivery, subtotal, and total.
+- Demo checkout: delivery form with validation and order summary.
 
 Browse Books, Cart, and Add to Cart are disabled until we implement their functionality. There is no backend, account system, checkout, or real payment processing.
 
@@ -184,7 +185,12 @@ The cart is saved to `localStorage` whenever it changes and restored when the ap
 `CartSummary` adds a sample delivery charge and displays the subtotal, delivery, and total. Checkout remains disabled because this project does not have a backend or payment service yet.
 
 The cart icon always opens `/cart`. An empty cart shows a continue-shopping message.
-## Review checklist
+
+## Step 10: Demo checkout — controlled forms and validation
+
+`CheckoutPage` keeps each delivery field in one form object. Every input is controlled by React, and submitting the form checks that required fields are filled before showing a status message.
+
+The page calculates the same subtotal and delivery fee as the cart and lists each item in the order summary. It does not collect card details or process a payment. A confirmation page will be added next.## Review checklist
 
 - Resize the browser and check the header and mobile menu.
 - Operate the mobile menu with Tab, Enter, and Escape.
@@ -199,6 +205,7 @@ The cart icon always opens `/cart`. An empty cart shows a continue-shopping mess
 Build and explain one component or agreed change at a time, then pause for code review. Keep this README updated as features change. The project owner handles all Git initialization, commits, and pushes manually.
 
 Next components will be discussed before implementation. Filtering, book details, and cart functionality have not been built yet.
+
 
 
 
