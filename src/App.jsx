@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { CartProvider } from './context/CartContext'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import BookGrid from './components/BookGrid'
@@ -7,6 +8,7 @@ import EmptyState from './components/EmptyState'
 import GenreFilter from './components/GenreFilter'
 import SearchBar from './components/SearchBar'
 import BookDetailsPage from './pages/BookDetailsPage'
+import CartPage from './pages/CartPage'
 import { books } from './data/books'
 
 function HomePage() {
@@ -42,12 +44,19 @@ function HomePage() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <CartProvider>
+      <BrowserRouter>
       <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/books/:bookId" element={<BookDetailsPage />} />
+          <Route path="/cart" element={<CartPage />} />
       </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+    </CartProvider>
   )
 }
+
+
+
+

@@ -25,6 +25,8 @@ npm run preview
 - BookCard: reusable cover, title, author, naira price, and Add to Cart button.
 - BookGrid: six sample books in one column on mobile, two from 640px, and three from 1024px.
 - Catalogue controls: search by title or author, genre filter, result count, and an empty state.
+- Cart foundation: shared cart state, Add to Cart actions, a live header count, localStorage persistence.
+- Cart page: item quantities, remove actions, delivery, subtotal, and total.
 
 Browse Books, Cart, and Add to Cart are disabled until we implement their functionality. There is no backend, account system, checkout, or real payment processing.
 
@@ -48,6 +50,8 @@ src/
     SearchBar.jsx        Controlled title and author search
     GenreFilter.jsx      Controlled genre select
     EmptyState.jsx       No-results message
+  context/
+    CartContext.jsx      Shared cart state and localStorage persistence
   App.jsx             Composes the page sections
   main.jsx            Mounts React into index.html
   index.css           Tailwind import and global styles
@@ -165,6 +169,21 @@ The home page now keeps `searchTerm` and `selectedGenre` in React state. `Search
 The catalogue filters books by checking the title and author together, then checking the selected genre. `useMemo` recalculates the filtered list when either value changes. The result count uses `aria-live="polite"` so assistive technology can announce updates without interrupting the reader.
 
 If no books match, `EmptyState` explains what to try. Adding a genre to a book in `src/data/books.js` automatically makes it available to the filter.
+## Step 8: Cart state — shared data with Context
+
+`CartProvider` wraps the application so the header, book cards, and detail pages can use the same cart data. Components read that data with the `useCart()` hook.
+
+`addToCart()` adds a book with quantity `1`, or increases the quantity when that book is already present. The header calculates the total item count with `reduce()` and displays it in the cart badge.
+
+The cart is saved to `localStorage` whenever it changes and restored when the app starts. This keeps the current selection after a page refresh. The cart page now includes quantity controls, remove actions, subtotal, delivery, and total. Checkout remains disabled until that flow is built.
+
+## Step 9: Cart page — quantities and totals
+
+`CartPage` reads the shared cart items and calculates the subtotal with `reduce()`. `CartItem` lets the shopper change a quantity or remove a book. A quantity below one removes the item from the cart.
+
+`CartSummary` adds a sample delivery charge and displays the subtotal, delivery, and total. Checkout remains disabled because this project does not have a backend or payment service yet.
+
+The cart icon always opens `/cart`. An empty cart shows a continue-shopping message.
 ## Review checklist
 
 - Resize the browser and check the header and mobile menu.
@@ -180,6 +199,12 @@ If no books match, `EmptyState` explains what to try. Adding a genre to a book i
 Build and explain one component or agreed change at a time, then pause for code review. Keep this README updated as features change. The project owner handles all Git initialization, commits, and pushes manually.
 
 Next components will be discussed before implementation. Filtering, book details, and cart functionality have not been built yet.
+
+
+
+
+
+
 
 
 
