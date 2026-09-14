@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { formatNaira } from '../utils/currency'
 
@@ -14,7 +14,8 @@ const initialForm = {
 const deliveryFee = 1500
 
 export default function CheckoutPage() {
-  const { cartItems } = useCart()
+  const { cartItems, clearCart } = useCart()
+  const navigate = useNavigate()
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
   const [isReady, setIsReady] = useState(false)
@@ -44,7 +45,16 @@ export default function CheckoutPage() {
       return
     }
 
-    setIsReady(true)
+    const order = {
+      orderNumber: `TB-${Date.now().toString().slice(-6)}`,
+      customer: form,
+      items: cartItems,
+      subtotal,
+      delivery,
+    }
+
+    clearCart()
+    navigate('/order-confirmation', { state: order })
   }
 
   return (
@@ -75,7 +85,7 @@ function PageIntro() {
     <div className="flex flex-wrap items-end justify-between gap-4">
       <div>
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-800">
-          Demo checkout
+          Checkout
         </p>
         <h1 className="mt-3 font-serif text-4xl text-[#243e36] sm:text-5xl">
           Delivery details

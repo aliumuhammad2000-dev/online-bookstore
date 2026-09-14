@@ -21,6 +21,7 @@ Use the local URL printed by Vite. Run `npm run build` to verify the production 
 - Shared cart state with Add to Cart, quantity updates, remove actions, and localStorage persistence.
 - Cart page at `/cart` with subtotal, delivery fee, and total.
 - Demo checkout at `/checkout` with delivery fields and required-field validation.
+- Demo order confirmation at `/order-confirmation` with delivery details and order totals.
 
 There is no backend, account system, real payment processing, or shipping integration. The checkout is a demonstration only. All prices are sample values, not live retail prices.
 
@@ -48,6 +49,7 @@ src/
     BookDetailsPage.jsx  Route for one book's details
     CartPage.jsx         Cart route
     CheckoutPage.jsx     Demo checkout route
+    OrderConfirmationPage.jsx  Confirmation after a demo order
   utils/
     currency.js       Shared naira formatting
   App.jsx             Routes and home-page composition
@@ -79,7 +81,7 @@ A component is a function that returns JSX. Props let one component display diff
 
 ### Shared cart state
 
-`CartProvider` wraps the application. Components read the cart through `useCart()`, so the header, catalogue, detail page, cart page, and checkout all use the same items. `addToCart`, `updateQuantity`, and `removeFromCart` update arrays immutably. The cart count uses `reduce()` and the cart is saved to `localStorage`.
+`CartProvider` wraps the application. Components read the cart through `useCart()`, so the header, catalogue, detail page, cart page, and checkout all use the same items. `addToCart`, `updateQuantity`, `removeFromCart`, and `clearCart` update arrays immutably. The cart count uses `reduce()` and the cart is saved to `localStorage`.
 
 ### SVG covers
 
@@ -93,4 +95,4 @@ The project uses labelled form controls, descriptive image alt text, semantic he
 
 Build and explain one component or agreed change at a time, review it in the browser, and update this README before committing. The project owner handles Git commits and pushes manually.
 
-Next planned work is an order confirmation screen after the demo checkout.
+The next planned work is a small visual polish pass after the confirmation flow.
