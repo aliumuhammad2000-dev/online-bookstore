@@ -1,102 +1,28 @@
-# Thundey BookStore
-
-A frontend learning project for a physical bookstore, built one component at a time with React, Tailwind CSS, and Vite. Prices use Nigerian naira (NGN).
-
-## Run locally
-
-```sh
+A responsive online bookstore for physical books, built with React and Tailwind CSS.
+https://online-bookstore-cyan-two.vercel.app/
+Features
+- Search books by title or author and filter by genre.
+- View individual book details.
+- Add books to the cart, update quantities, and remove items.
+- Save favorite books to a wishlist.
+- Keep cart and wishlist data using localStorage.
+- Complete a demo checkout and view an order confirmation.
+- Responsive layouts and subtle animations with reduced-motion support.
+Tech Stack
+- React — reusable components and state management
+- React Router — page navigation
+- Tailwind CSS — styling and responsive layouts
+- Vite — development server and production builds
+- Vercel — hosting
+SVG Book Covers
+The book covers are local SVG files created using shapes, paths, and text instead of downloaded photographs. SVG images stay sharp at different sizes and can be edited directly in code.
+The hero’s decorative books use HTML elements styled with Tailwind CSS.
+Getting Started
+git clone https://github.com/aliumuhammad2000-dev/online-bookstore.git
+cd online-bookstore
 npm install
 npm run dev
-```
-
-Use the local URL printed by Vite. Run `npm run build` to verify the production build and `npm run preview` to serve it locally.
-
-## Current features
-
-- Responsive header with a mobile menu and cart count.
-- Hero section with decorative book illustrations.
-- Six-book catalogue with local SVG covers.
-- Search by title or author and filter by genre.
-- Separate book detail routes at `/books/:bookId`.
-- Shared cart state with Add to Cart, quantity updates, remove actions, and localStorage persistence.
-- Cart page at `/cart` with subtotal, delivery fee, and total.
-- Demo checkout at `/checkout` with delivery fields and required-field validation.
-- Demo order confirmation at `/order-confirmation` with delivery details and order totals.
-- Responsive footer with navigation, contact details, and demo-store information.
-- Friendly 404 page for unknown routes.
-- Working “Browse Books” links that jump to the bookshelf section from any page.
-- Redesigned genre filter with a visible label, custom chevron, and active-filter helper text.
-- Subtle hero entrance and book-card hover animations with reduced-motion support.
-- Wishlist page at `/wishlist` with heart controls and localStorage persistence.
-
-There is no backend, account system, real payment processing, or shipping integration. The checkout is a demonstration only. All prices are sample values, not live retail prices.
-
-## Project structure
-
-```text
-src/
-  assets/             Local SVG book covers
-  components/
-    Header.jsx        Navigation, mobile menu, and cart link
-    Hero.jsx          Static introductory section
-    BookCard.jsx      Display for one book
-    BookGrid.jsx      Responsive list of BookCards
-    BookDetails.jsx   Detailed view for one book
-    SearchBar.jsx     Controlled title and author search
-    GenreFilter.jsx   Controlled genre select
-    EmptyState.jsx    No-results message
-    CartItem.jsx      Cart line item and quantity control
-    CartSummary.jsx   Cart totals and checkout link
-    Footer.jsx        Site footer and navigation links
-  context/
-    CartContext.jsx   Shared cart state and localStorage persistence
-    WishlistContext.jsx  Persistent wishlist state
-  data/
-    books.js          Sample catalogue data
-  pages/
-    BookDetailsPage.jsx  Route for one book's details
-    CartPage.jsx         Cart route
-    CheckoutPage.jsx     Demo checkout route
-    OrderConfirmationPage.jsx  Confirmation after a demo order
-    NotFoundPage.jsx      Fallback page for unknown routes
-    WishlistPage.jsx      Saved books page
-  utils/
-    currency.js       Shared naira formatting
-  App.jsx             Routes and home-page composition
-  main.jsx            Mounts React into index.html
-  index.css           Tailwind import and global styles
-```
-
-## How the main React concepts work
-
-### Components and props
-
-A component is a function that returns JSX. Props let one component display different data:
-
-```jsx
-<BookCard
-  id="pride-and-prejudice"
-  title="Pride and Prejudice"
-  author="Jane Austen"
-  price={8500}
-  cover={prideCover}
-/>
-```
-
-`BookGrid` maps over the catalogue and gives each card a stable `key`. `BookDetailsPage` reads a book ID from the URL with `useParams()`.
-
-### Controlled inputs
-
-`SearchBar`, `GenreFilter`, and the checkout fields receive their values from React state. Their change handlers update that state, so the UI and data stay synchronized. The catalogue derives filtered books from the search text and selected genre.
-
-### Shared cart state
-
-`CartProvider` wraps the application. Components read the cart through `useCart()`, so the header, catalogue, detail page, cart page, and checkout all use the same items. `addToCart`, `updateQuantity`, `removeFromCart`, and `clearCart` update arrays immutably. The cart count uses `reduce()` and the cart is saved to `localStorage`.
-
-### SVG covers
-
-The book covers are local SVG files created with code rather than downloaded photographs. SVG stores drawing instructions such as rectangles, paths, and text, which the browser renders as an image. The Hero uses a separate technique: styled HTML elements and Tailwind classes create its decorative overlapping books.
-
-### Accessibility
-
-The project uses labelled form controls, descriptive image alt text, semantic headings and definition lists, keyboard-friendly buttons, a skip link, and an `aria-live` result count.
+Create a production build:
+npm run build
+Project Scope
+This is a frontend portfolio project. Prices are sample values in Nigerian naira (₦). Checkout is a demonstration; no real orders or payments are processed, and no backend or account system is included.
