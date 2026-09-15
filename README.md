@@ -47,8 +47,10 @@ src/
     EmptyState.jsx    No-results message
     CartItem.jsx      Cart line item and quantity control
     CartSummary.jsx   Cart totals and checkout link
+    Footer.jsx        Site footer and navigation links
   context/
     CartContext.jsx   Shared cart state and localStorage persistence
+    WishlistContext.jsx  Persistent wishlist state
   data/
     books.js          Sample catalogue data
   pages/
@@ -56,10 +58,8 @@ src/
     CartPage.jsx         Cart route
     CheckoutPage.jsx     Demo checkout route
     OrderConfirmationPage.jsx  Confirmation after a demo order
-    Footer.jsx            Site footer and navigation links
     NotFoundPage.jsx      Fallback page for unknown routes
     WishlistPage.jsx      Saved books page
-    WishlistContext.jsx   Persistent wishlist state
   utils/
     currency.js       Shared naira formatting
   App.jsx             Routes and home-page composition
@@ -100,9 +100,3 @@ The book covers are local SVG files created with code rather than downloaded pho
 ### Accessibility
 
 The project uses labelled form controls, descriptive image alt text, semantic headings and definition lists, keyboard-friendly buttons, a skip link, and an `aria-live` result count.
-
-## Learning workflow
-
-Build and explain one component or agreed change at a time, review it in the browser, and update this README before committing. The project owner handles Git commits and pushes manually.
-
-The next planned work is a small visual polish pass after the confirmation flow.
